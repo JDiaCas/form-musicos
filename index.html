@@ -272,18 +272,18 @@
 
 <section class="hero">
     <h1>Encontrar músicos afines <span>es un caos</span></h1>
-    <p>Estamos construyendo una plataforma que te conecte con la banda perfecta para vos. Primero, queremos escuchar tu experiencia real.</p>
-    <span class="badge">Esta entrevista solo serán 5 minutos</span>
+    <span class="badge">Estas preguntas serán solo 5 minutos</span>
+    <p>Ayudanos a construir la mejor comunidad de músicos de Barcelona</p>
 </section>
 
 <main class="container">
     <div class="intro">
         <h2>Ayudanos a construir la mejor comunidad de músicos de Barcelona</h2>
-        <p>Antes de construir algo, queremos hablar con 50 músicos y 10 bandas para entender cómo viven hoy la búsqueda de compañeros musicales.</p>
+        <p>Queremos entender cómo vivís la búsqueda de compañeros musicales.</p>
     </div>
 
-    <!-- Progress -->
-    <div class="progress-section">
+    <!-- Combined: progress + role selection -->
+    <div class="card" id="roleSelector">
         <h3>Progreso de la comunidad</h3>
         <div class="progress-item">
             <div class="progress-header">
@@ -294,7 +294,7 @@
                 <div class="progress-fill" id="barMusicos" style="width: 0%"></div>
             </div>
         </div>
-        <div class="progress-item">
+        <div class="progress-item" style="margin-bottom:24px">
             <div class="progress-header">
                 <span>Bandas</span>
                 <span><span id="countBandas">0</span> / 10</span>
@@ -303,12 +303,9 @@
                 <div class="progress-fill" id="barBandas" style="width: 0%"></div>
             </div>
         </div>
-    </div>
 
-    <!-- Role selection -->
-    <div class="card" id="roleSelector">
-        <h3>¿Cómo participas?</h3>
-        <p class="hint">Seleccioná una opción para empezar la encuesta.</p>
+        <h3 style="text-align:center; font-size:1.1rem; margin-bottom:14px">¿Cómo participas?</h3>
+        <p class="hint" style="text-align:center">Seleccioná una opción para empezar la encuesta.</p>
         <div class="role-options">
             <button class="role-btn" data-role="musico">
                 <span class="role-icon">&#9835;</span>
@@ -500,6 +497,7 @@
         btn.addEventListener('click', function() {
             const role = this.dataset.role;
             document.getElementById('rolInput').value = role;
+            document.querySelector('.intro').classList.add('hidden');
             document.getElementById('roleSelector').classList.add('hidden');
             document.getElementById('surveyForm').classList.remove('hidden');
             window.scrollTo({ top: document.getElementById('surveyForm').offsetTop - 20, behavior: 'smooth' });
