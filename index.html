@@ -177,16 +177,94 @@
         .success-msg p {
             color: #8899aa;
         }
-        .hidden { display: none; }
+        .hidden { display: none !important; }
         .inline-field {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 14px;
         }
+        .progress-section {
+            background: #111118;
+            border: 1px solid #1e1e2a;
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 24px;
+        }
+        .progress-section h3 {
+            font-size: 1rem;
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .progress-item {
+            margin-bottom: 16px;
+        }
+        .progress-item:last-child {
+            margin-bottom: 0;
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #8899aa;
+            margin-bottom: 6px;
+        }
+        .progress-bar {
+            height: 10px;
+            background: #1e1e2a;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 6px;
+            background: linear-gradient(90deg, #e94560, #ff6b81);
+            transition: width 0.6s ease;
+        }
+        .role-options {
+            display: flex;
+            gap: 14px;
+            margin-top: 4px;
+        }
+        .role-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 28px 18px;
+            background: #1a1a24;
+            border: 2px solid #2a2a3a;
+            border-radius: 14px;
+            color: #e0e0e0;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: inherit;
+            text-align: center;
+        }
+        .role-btn:hover {
+            border-color: #e94560;
+            background: #1e1e2e;
+            transform: translateY(-2px);
+        }
+        .role-icon {
+            font-size: 2.2rem;
+        }
+        .role-label {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .role-desc {
+            font-size: 0.8rem;
+            color: #667788;
+            line-height: 1.4;
+        }
         @media (max-width: 600px) {
             .hero h1 { font-size: 1.8rem; }
             .card { padding: 24px 18px; }
             .inline-field { grid-template-columns: 1fr; }
+            .role-options { flex-direction: column; }
         }
     </style>
 </head>
@@ -195,16 +273,59 @@
 <section class="hero">
     <h1>Encontrar músicos afines <span>es un caos</span></h1>
     <p>Estamos construyendo una plataforma que te conecte con la banda perfecta para vos. Primero, queremos escuchar tu experiencia real.</p>
-    <span class="badge">Entrevista de 5 min</span>
+    <span class="badge">Esta entrevista solo serán 5 minutos</span>
 </section>
 
 <main class="container">
     <div class="intro">
-        <h2>Ayudanos a validar el problema</h2>
+        <h2>Ayudanos a construir la mejor comunidad de músicos de Barcelona</h2>
         <p>Antes de construir algo, queremos hablar con 50 músicos y 10 bandas para entender cómo viven hoy la búsqueda de compañeros musicales.</p>
     </div>
 
-    <form id="surveyForm">
+    <!-- Progress -->
+    <div class="progress-section">
+        <h3>Progreso de la comunidad</h3>
+        <div class="progress-item">
+            <div class="progress-header">
+                <span>Músicos individuales</span>
+                <span><span id="countMusicos">0</span> / 50</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="barMusicos" style="width: 0%"></div>
+            </div>
+        </div>
+        <div class="progress-item">
+            <div class="progress-header">
+                <span>Bandas</span>
+                <span><span id="countBandas">0</span> / 10</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="barBandas" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Role selection -->
+    <div class="card" id="roleSelector">
+        <h3>¿Cómo participas?</h3>
+        <p class="hint">Seleccioná una opción para empezar la encuesta.</p>
+        <div class="role-options">
+            <button class="role-btn" data-role="musico">
+                <span class="role-icon">&#9835;</span>
+                <span class="role-label">Músico individual</span>
+                <span class="role-desc">Buscás otros músicos para formar o unirte a una banda</span>
+            </button>
+            <button class="role-btn" data-role="banda">
+                <span class="role-icon">&#9833;</span>
+                <span class="role-label">Banda</span>
+                <span class="role-desc">Representás a una banda que busca nuevos miembros</span>
+            </button>
+        </div>
+    </div>
+
+    <form id="surveyForm" class="hidden">
+        <input type="hidden" name="rol" id="rolInput" value="">
+
         <!-- Perfil -->
         <div class="card">
             <h3>Sobre vos</h3>
@@ -225,7 +346,7 @@
                 </div>
                 <div class="form-group">
                     <label>Zona / Ciudad *</label>
-                    <input type="text" name="zona" placeholder="p.ej. Palermo, CABA" required>
+                    <input type="text" name="zona" placeholder="p.ej. Gràcia, Eixample, Barcelona" required>
                 </div>
             </div>
             <div class="form-group">
@@ -346,17 +467,46 @@
 
     <div class="success-msg" id="successMsg">
         <h2>¡Gracias por tu tiempo!</h2>
-        <p>Tus respuestas nos ayudan a construir algo que realmente sirva. Te vamos a tener al tanto.</p>
+        <p>Gracias a tu participación, estamos más cerca de construir la mejor comunidad de músicos de Barcelona. Te mantendremos al tanto.</p>
     </div>
 </main>
 
 <script>
+    const API_URL = 'https://tu-backend.com/api'; // cambiar cuando tengas backend
+
+    let counts = { musicos: 2, bandas: 1 }; // demo inicial
+
     function toggleCompatibleDetalle(show) {
         const detalle = document.getElementById('compatibleDetalle');
         detalle.classList.toggle('hidden', !show);
     }
 
-    document.getElementById('surveyForm').addEventListener('submit', function(e) {
+    function actualizarProgreso() {
+        document.getElementById('countMusicos').textContent = counts.musicos;
+        document.getElementById('countBandas').textContent = counts.bandas;
+        document.getElementById('barMusicos').style.width = Math.min(100, (counts.musicos / 50) * 100) + '%';
+        document.getElementById('barBandas').style.width = Math.min(100, (counts.bandas / 10) * 100) + '%';
+    }
+
+    async function cargarProgreso() {
+        try {
+            const res = await fetch(API_URL + '/progress');
+            if (res.ok) counts = await res.json();
+        } catch {}
+        actualizarProgreso();
+    }
+
+    document.querySelectorAll('.role-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const role = this.dataset.role;
+            document.getElementById('rolInput').value = role;
+            document.getElementById('roleSelector').classList.add('hidden');
+            document.getElementById('surveyForm').classList.remove('hidden');
+            window.scrollTo({ top: document.getElementById('surveyForm').offsetTop - 20, behavior: 'smooth' });
+        });
+    });
+
+    document.getElementById('surveyForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
@@ -370,9 +520,27 @@
             }
         });
         console.log('Survey response:', JSON.stringify(data, null, 2));
+
+        try {
+            await fetch(API_URL + '/survey', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+        } catch {}
+
+        if (data.rol === 'banda') {
+            counts.bandas = Math.min(10, counts.bandas + 1);
+        } else {
+            counts.musicos = Math.min(50, counts.musicos + 1);
+        }
+        actualizarProgreso();
+
         form.classList.add('hidden');
         document.getElementById('successMsg').classList.add('show');
     });
+
+    cargarProgreso();
 </script>
 
 </body>
