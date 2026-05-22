@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Encuentra tu banda ideal</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #121212;
@@ -29,9 +25,7 @@
             margin-bottom: 24px;
             line-height: 1.2;
         }
-        .hero h1 span {
-            color: #1DB954;
-        }
+        .hero h1 span { color: #1DB954; }
         .hero .badge {
             display: inline-block;
             background: #1DB954;
@@ -56,18 +50,9 @@
             margin: 0 auto;
             padding: 40px 20px 80px;
         }
-        .intro {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .intro h2 {
-            font-size: 1.5rem;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-        .intro p {
-            color: #b3b3b3;
-        }
+        .intro { text-align: center; margin-bottom: 40px; }
+        .intro h2 { font-size: 1.5rem; color: #fff; margin-bottom: 12px; }
+        .intro p { color: #b3b3b3; }
         .card {
             background: #181818;
             border: 1px solid #282828;
@@ -75,11 +60,7 @@
             padding: 36px 32px;
             margin-bottom: 24px;
         }
-        .card h3 {
-            font-size: 1.1rem;
-            color: #fff;
-            margin-bottom: 6px;
-        }
+        .card h3 { font-size: 1.1rem; color: #fff; margin-bottom: 16px; }
         .card .hint {
             font-size: 0.85rem;
             color: #727272;
@@ -107,9 +88,7 @@
             outline: none;
             border-color: #1DB954;
         }
-        .form-group {
-            margin-bottom: 18px;
-        }
+        .form-group { margin-bottom: 18px; }
         .checkbox-group, .radio-group {
             display: flex;
             flex-wrap: wrap;
@@ -137,6 +116,12 @@
             width: auto;
             accent-color: #1DB954;
         }
+        .checkbox-group label.disabled,
+        .radio-group label.disabled {
+            opacity: 0.35;
+            pointer-events: none;
+            border-color: #282828;
+        }
         .btn {
             display: inline-flex;
             align-items: center;
@@ -154,43 +139,271 @@
             margin-top: 8px;
             letter-spacing: 0.5px;
         }
-        .btn:hover {
-            background: #1ed760;
-        }
-        .btn:active {
-            transform: scale(0.98);
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .success-msg {
-            display: none;
-            text-align: center;
-            padding: 40px 20px;
-        }
-        .success-msg.show {
-            display: block;
-        }
-        .success-msg h2 {
-            color: #1DB954;
-            margin-bottom: 12px;
-        }
-        .success-msg p {
+        .btn:hover { background: #1ed760; }
+        .btn:active { transform: scale(0.98); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #333;
             color: #b3b3b3;
+            width: auto;
+            padding: 10px 24px;
         }
+        .btn-secondary:hover {
+            border-color: #1DB954;
+            color: #fff;
+            background: transparent;
+        }
+        .success-msg { display: none; text-align: center; padding: 40px 20px; }
+        .success-msg.show { display: block; }
+        .success-msg h2 { color: #1DB954; margin-bottom: 12px; }
+        .success-msg p { color: #b3b3b3; }
         .hidden { display: none !important; }
         .inline-field {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 14px;
         }
-        .progress-item {
-            margin-bottom: 16px;
+        .microcopy {
+            font-size: 0.8rem;
+            color: #727272;
+            margin-top: 4px;
+            line-height: 1.4;
         }
-        .progress-item:last-child {
-            margin-bottom: 0;
+        .error-msg {
+            display: none;
+            color: #e91429;
+            font-size: 0.8rem;
+            margin-top: 4px;
         }
+        .error-msg.show { display: block; }
+        .error-border { border-color: #e91429 !important; }
+        .max-hint {
+            font-size: 0.78rem;
+            color: #727272;
+            text-align: right;
+            margin-top: 4px;
+        }
+        .checkbox-single {
+            display: flex !important;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #b3b3b3;
+            cursor: pointer;
+            line-height: 1.5;
+        }
+        .checkbox-single input[type="checkbox"] {
+            width: 18px; height: 18px;
+            margin-top: 2px;
+            accent-color: #1DB954;
+            flex-shrink: 0;
+        }
+
+        /* Stepper */
+        .stepper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78rem;
+            color: #727272;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: default;
+            transition: all 0.2s;
+        }
+        .step-item.active {
+            color: #fff;
+            background: #282828;
+        }
+        .step-item.completed {
+            color: #1DB954;
+            cursor: pointer;
+        }
+        .step-item.completed:hover {
+            background: #1a2a1a;
+        }
+        .step-item .step-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: #282828;
+            color: #727272;
+            flex-shrink: 0;
+        }
+        .step-item.active .step-dot {
+            background: #1DB954;
+            color: #fff;
+        }
+        .step-item.completed .step-dot {
+            background: #1DB954;
+            color: #fff;
+        }
+        .step-arrow {
+            color: #333;
+            font-size: 0.7rem;
+        }
+
+        /* Stepper mobile */
+        .stepper-mobile {
+            display: none;
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+            color: #b3b3b3;
+        }
+        .stepper-mobile .step-count {
+            color: #1DB954;
+            font-weight: 700;
+        }
+        .stepper-mobile .step-progress {
+            height: 4px;
+            background: #282828;
+            border-radius: 2px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        .stepper-mobile .step-progress .fill {
+            height: 100%;
+            background: #1DB954;
+            border-radius: 2px;
+            transition: width 0.4s;
+        }
+
+        /* Step navigation */
+        .step-nav {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .step-nav .btn {
+            width: auto;
+            flex: 1;
+            margin-top: 0;
+        }
+        .step-nav .btn-secondary {
+            flex: 0 0 auto;
+        }
+
+        /* Availability matrix */
+        .avail-matrix {
+            display: grid;
+            grid-template-columns: 100px 1fr 1fr;
+            gap: 6px;
+            align-items: center;
+            margin-top: 8px;
+        }
+        .avail-matrix .matrix-header {
+            font-size: 0.8rem;
+            color: #727272;
+            text-align: center;
+            padding: 6px;
+        }
+        .avail-matrix .matrix-label {
+            font-size: 0.85rem;
+            color: #b3b3b3;
+            padding: 6px;
+        }
+        .avail-matrix .matrix-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .avail-matrix .matrix-cell label {
+            margin: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background: #282828;
+            border: 1px solid #333;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .avail-matrix .matrix-cell label:hover {
+            border-color: #1DB954;
+        }
+        .avail-matrix .matrix-cell input {
+            width: 20px;
+            height: 20px;
+            accent-color: #1DB954;
+            margin: 0;
+        }
+
+        /* Tags / chips */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+            min-height: 38px;
+        }
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #282828;
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            color: #fff;
+            transition: all 0.2s;
+        }
+        .tag .tag-remove {
+            cursor: pointer;
+            color: #727272;
+            font-size: 1rem;
+            line-height: 1;
+        }
+        .tag .tag-remove:hover {
+            color: #e91429;
+        }
+        .suggestions-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        .suggestion-chip {
+            background: transparent;
+            border: 1px dashed #444;
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            color: #b3b3b3;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .suggestion-chip:hover {
+            border-color: #1DB954;
+            color: #1DB954;
+        }
+        .suggestions-label {
+            font-size: 0.78rem;
+            color: #727272;
+            margin-top: 8px;
+        }
+
+        /* Progress + role */
+        .progress-item { margin-bottom: 16px; }
+        .progress-item:last-child { margin-bottom: 0; }
         .progress-header {
             display: flex;
             justify-content: space-between;
@@ -198,23 +411,9 @@
             color: #b3b3b3;
             margin-bottom: 6px;
         }
-        .progress-bar {
-            height: 8px;
-            background: #282828;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            border-radius: 4px;
-            background: #1DB954;
-            transition: width 0.6s ease;
-        }
-        .role-options {
-            display: flex;
-            gap: 14px;
-            margin-top: 4px;
-        }
+        .progress-bar { height: 8px; background: #282828; border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: 4px; background: #1DB954; transition: width 0.6s ease; }
+        .role-options { display: flex; gap: 14px; margin-top: 4px; }
         .role-btn {
             flex: 1;
             display: flex;
@@ -236,64 +435,24 @@
             background: #333;
             transform: translateY(-2px);
         }
-        .role-icon {
-            font-size: 2.2rem;
-        }
-        .role-label {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #fff;
-        }
-        .role-desc {
-            font-size: 0.8rem;
-            color: #727272;
-            line-height: 1.4;
-        }
-        .microcopy {
-            font-size: 0.8rem;
-            color: #727272;
-            margin-top: 4px;
-            line-height: 1.4;
-        }
-        .error-msg {
-            display: none;
-            color: #e91429;
-            font-size: 0.8rem;
-            margin-top: 4px;
-        }
-        .error-msg.show {
-            display: block;
-        }
-        .error-border {
-            border-color: #e91429 !important;
-        }
-        .max-hint {
-            font-size: 0.78rem;
-            color: #727272;
-            text-align: right;
-            margin-top: 4px;
-        }
-        .checkbox-single {
-            display: flex !important;
-            align-items: flex-start;
-            gap: 10px;
-            font-size: 0.9rem;
-            color: #b3b3b3;
-            cursor: pointer;
-            line-height: 1.5;
-        }
-        .checkbox-single input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin-top: 2px;
-            accent-color: #1DB954;
-            flex-shrink: 0;
-        }
+        .role-icon { font-size: 2.2rem; }
+        .role-label { font-size: 1rem; font-weight: 700; color: #fff; }
+        .role-desc { font-size: 0.8rem; color: #727272; line-height: 1.4; }
+
         @media (max-width: 600px) {
             .hero h1 { font-size: 1.8rem; }
             .card { padding: 24px 18px; }
             .inline-field { grid-template-columns: 1fr; }
             .role-options { flex-direction: column; }
+            .stepper { display: none; }
+            .stepper-mobile { display: block; }
+            .avail-matrix { grid-template-columns: 70px 1fr 1fr; }
+            .avail-matrix .matrix-cell label { padding: 8px; }
+            .step-nav { flex-direction: column; }
+            .step-nav .btn-secondary { width: 100%; }
+        }
+        @media (min-width: 601px) {
+            .stepper-mobile { display: none; }
         }
     </style>
 </head>
@@ -311,7 +470,7 @@
         <p>Estamos investigando las dificultades que tienen los músicos para encontrar gente con la que tocar. Tus respuestas nos ayudarán a construir algo útil.</p>
     </div>
 
-    <!-- Combined: progress + role selection -->
+    <!-- Progress + role -->
     <div class="card" id="roleSelector">
         <h3>Progreso de la comunidad</h3>
         <div class="progress-item">
@@ -320,7 +479,7 @@
                 <span><span id="countMusicos">0</span> / 50</span>
             </div>
             <div class="progress-bar">
-                <div class="progress-fill" id="barMusicos" style="width: 0%"></div>
+                <div class="progress-fill" id="barMusicos" style="width:0%"></div>
             </div>
         </div>
         <div class="progress-item" style="margin-bottom:24px">
@@ -329,11 +488,10 @@
                 <span><span id="countBandas">0</span> / 10</span>
             </div>
             <div class="progress-bar">
-                <div class="progress-fill" id="barBandas" style="width: 0%"></div>
+                <div class="progress-fill" id="barBandas" style="width:0%"></div>
             </div>
         </div>
-
-        <h3 style="text-align:center; font-size:1.1rem; margin-bottom:14px">¿Cómo participas?</h3>
+        <h3 style="text-align:center;font-size:1.1rem;margin-bottom:14px">¿Cómo participas?</h3>
         <p class="hint" style="text-align:center">Selecciona una opción para empezar</p>
         <div class="role-options">
             <button class="role-btn" data-role="musico">
@@ -349,138 +507,177 @@
         </div>
     </div>
 
+    <!-- Stepper desktop -->
+    <div class="stepper hidden" id="stepper">
+        <div class="step-item active" data-step="1"><span class="step-dot">1</span> Contacto</div>
+        <span class="step-arrow">&#9654;</span>
+        <div class="step-item" data-step="2"><span class="step-dot">2</span> Perfil</div>
+        <span class="step-arrow">&#9654;</span>
+        <div class="step-item" data-step="3"><span class="step-dot">3</span> Buscas</div>
+        <span class="step-arrow">&#9654;</span>
+        <div class="step-item" data-step="4"><span class="step-dot">4</span> Experiencia</div>
+        <span class="step-arrow">&#9654;</span>
+        <div class="step-item" data-step="5"><span class="step-dot">5</span> Encaje</div>
+        <span class="step-arrow">&#9654;</span>
+        <div class="step-item" data-step="6"><span class="step-dot">6</span> Enviar</div>
+    </div>
+
+    <!-- Stepper mobile -->
+    <div class="stepper-mobile hidden" id="stepperMobile">
+        <div>Paso <span class="step-count" id="mobileStepLabel">1</span> de 6</div>
+        <div class="step-progress"><div class="fill" id="mobileProgressFill" style="width:16.66%"></div></div>
+    </div>
+
     <form id="surveyForm" class="hidden" novalidate>
         <input type="hidden" name="rol" id="rolInput" value="">
 
-        <!-- SECCION 1: Contacto basico -->
-        <div class="card">
-            <h3>Contacto</h3>
-
-            <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" id="email" name="email" placeholder="tu@email.com" required>
-                <div class="microcopy">Lo usaremos solo para contactarte si queremos ampliar información o si encontramos músicos que encajen contigo.</div>
-                <div class="error-msg" id="emailError">Introduce un email válido</div>
+        <!-- STEP 1: Contacto -->
+        <div class="step-content" data-step="1">
+            <div class="card">
+                <h3>Contacto</h3>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                    <div class="microcopy">Lo usaremos solo para contactarte si queremos ampliar información o si encontramos músicos que encajen contigo.</div>
+                    <div class="error-msg" id="emailError">Introduce un email válido</div>
+                </div>
+                <div class="inline-field">
+                    <div class="form-group">
+                        <label for="name">Nombre o nombre artístico *</label>
+                        <input type="text" id="name" name="name" placeholder="Ej. Alex" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ageRange">Edad</label>
+                        <select id="ageRange" name="ageRange">
+                            <option value="">Selecciona</option>
+                            <option value="under18">Menos de 18</option>
+                            <option value="18-24">18-24</option>
+                            <option value="25-34">25-34</option>
+                            <option value="35-44">35-44</option>
+                            <option value="45+">45+</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="inline-field">
+                    <div class="form-group">
+                        <label for="cityZone">Ciudad y zona / barrio *</label>
+                        <input type="text" id="cityZone" name="cityZone" placeholder="Ej. Barcelona, Gràcia" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="alternativeContact">Instagram, WhatsApp u otro canal</label>
+                        <input type="text" id="alternativeContact" name="alternativeContact" placeholder="Opcional, por si prefieres que te contactemos por otro canal">
+                    </div>
+                </div>
             </div>
-
-            <div class="inline-field">
-                <div class="form-group">
-                    <label for="name">Nombre o nombre artístico *</label>
-                    <input type="text" id="name" name="name" placeholder="Ej. Alex" required>
-                </div>
-                <div class="form-group">
-                    <label for="ageRange">Edad</label>
-                    <select id="ageRange" name="ageRange">
-                        <option value="">Selecciona</option>
-                        <option value="under18">Menos de 18</option>
-                        <option value="18-24">18-24</option>
-                        <option value="25-34">25-34</option>
-                        <option value="35-44">35-44</option>
-                        <option value="45+">45+</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="inline-field">
-                <div class="form-group">
-                    <label for="cityZone">Ciudad y zona / barrio *</label>
-                    <input type="text" id="cityZone" name="cityZone" placeholder="Ej. Barcelona, Gràcia" required>
-                </div>
-                <div class="form-group">
-                    <label for="alternativeContact">Instagram, WhatsApp u otro canal</label>
-                    <input type="text" id="alternativeContact" name="alternativeContact" placeholder="Opcional, por si prefieres que te contactemos por otro canal">
-                </div>
+            <div class="step-nav">
+                <button type="button" class="btn btn-next" data-next="2">Siguiente</button>
             </div>
         </div>
 
-        <!-- SECCION 2: Perfil musical -->
-        <div class="card">
-            <h3>Perfil musical</h3>
-
-            <div class="inline-field">
-                <div class="form-group">
-                    <label for="mainInstrument">Instrumento principal *</label>
-                    <select id="mainInstrument" name="mainInstrument" required>
-                        <option value="">Selecciona</option>
-                        <option value="voz">Voz</option>
-                        <option value="guitarra">Guitarra</option>
-                        <option value="bajo">Bajo</option>
-                        <option value="bateria">Batería</option>
-                        <option value="teclado">Teclado</option>
-                        <option value="produccion">Producción / DJ</option>
-                        <option value="otro">Otro</option>
-                    </select>
+        <!-- STEP 2: Perfil -->
+        <div class="step-content hidden" data-step="2">
+            <div class="card">
+                <h3>Perfil musical</h3>
+                <div class="inline-field">
+                    <div class="form-group">
+                        <label for="mainInstrument">Instrumento principal *</label>
+                        <select id="mainInstrument" name="mainInstrument" required>
+                            <option value="">Selecciona</option>
+                            <option value="voz">Voz</option>
+                            <option value="guitarra">Guitarra</option>
+                            <option value="bajo">Bajo</option>
+                            <option value="bateria">Batería</option>
+                            <option value="teclado">Teclado</option>
+                            <option value="produccion">Producción / DJ</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="level">¿Qué nivel consideras que tienes? *</label>
+                        <select id="level" name="level" required>
+                            <option value="">Selecciona</option>
+                            <option value="amateur">Amateur / estoy empezando</option>
+                            <option value="intermedio">Intermedio</option>
+                            <option value="intermedio-avanzado">Intermedio-avanzado</option>
+                            <option value="avanzado">Avanzado</option>
+                            <option value="no_lo_tengo_claro">No lo tengo claro</option>
+                        </select>
+                        <div class="microcopy">No buscamos juzgar el nivel, solo entender qué tipo de músicos podrían encajar mejor contigo.</div>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="level">¿Qué nivel consideras que tienes? *</label>
-                    <select id="level" name="level" required>
-                        <option value="">Selecciona</option>
-                        <option value="amateur">Amateur / estoy empezando</option>
-                        <option value="intermedio">Intermedio</option>
-                        <option value="intermedio-avanzado">Intermedio-avanzado</option>
-                        <option value="avanzado">Avanzado</option>
-                        <option value="no_lo_tengo_claro">No lo tengo claro</option>
-                    </select>
-                    <div class="microcopy">No buscamos juzgar el nivel, solo entender qué tipo de músicos podrían encajar mejor contigo.</div>
+                    <label>Otros instrumentos que tocas</label>
+                    <div class="checkbox-group" id="secondaryInstrumentsGroup">
+                        <label><input type="checkbox" name="secondaryInstruments" value="voz"> Voz</label>
+                        <label><input type="checkbox" name="secondaryInstruments" value="guitarra"> Guitarra</label>
+                        <label><input type="checkbox" name="secondaryInstruments" value="bajo"> Bajo</label>
+                        <label><input type="checkbox" name="secondaryInstruments" value="bateria"> Batería</label>
+                        <label><input type="checkbox" name="secondaryInstruments" value="teclado"> Teclado</label>
+                        <label><input type="checkbox" name="secondaryInstruments" value="produccion"> Producción / DJ</label>
+                        <label><input type="checkbox" name="secondaryInstruments" value="otro"> Otro</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Estilos musicales que más te interesan *</label>
+                    <div class="checkbox-group" id="stylesGroup">
+                        <label><input type="checkbox" name="preferredStyles" value="rock"> Rock</label>
+                        <label><input type="checkbox" name="preferredStyles" value="indie"> Indie</label>
+                        <label><input type="checkbox" name="preferredStyles" value="pop"> Pop</label>
+                        <label><input type="checkbox" name="preferredStyles" value="funk"> Funk</label>
+                        <label><input type="checkbox" name="preferredStyles" value="metal"> Metal</label>
+                        <label><input type="checkbox" name="preferredStyles" value="jazz"> Jazz</label>
+                        <label><input type="checkbox" name="preferredStyles" value="electronica"> Electrónica</label>
+                        <label><input type="checkbox" name="preferredStyles" value="urbana"> Urbana / hip-hop</label>
+                        <label><input type="checkbox" name="preferredStyles" value="folk"> Folk / acústico</label>
+                        <label><input type="checkbox" name="preferredStyles" value="otro"> Otro</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="musicReferencesInput">Referencias musicales</label>
+                    <div class="microcopy">Puedes elegir alguna sugerencia o escribir tus propios artistas/bandas de referencia.</div>
+                    <input type="text" id="musicReferencesInput" placeholder="Escribe un artista o banda y pulsa Enter">
+                    <div class="suggestions-label" id="suggestionsLabel">Selecciona primero algún estilo musical para ver sugerencias</div>
+                    <div class="suggestions-container" id="suggestionsContainer"></div>
+                    <div class="tags-container" id="tagsContainer"></div>
+                    <input type="hidden" name="musicReferences" id="musicReferencesHidden">
                 </div>
             </div>
-
-            <div class="form-group">
-                <label>Otros instrumentos que tocas</label>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="secondaryInstruments" value="voz"> Voz</label>
-                    <label><input type="checkbox" name="secondaryInstruments" value="guitarra"> Guitarra</label>
-                    <label><input type="checkbox" name="secondaryInstruments" value="bajo"> Bajo</label>
-                    <label><input type="checkbox" name="secondaryInstruments" value="bateria"> Batería</label>
-                    <label><input type="checkbox" name="secondaryInstruments" value="teclado"> Teclado</label>
-                    <label><input type="checkbox" name="secondaryInstruments" value="produccion"> Producción / DJ</label>
-                    <label><input type="checkbox" name="secondaryInstruments" value="otro"> Otro</label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Estilos musicales que más te interesan *</label>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="preferredStyles" value="rock"> Rock</label>
-                    <label><input type="checkbox" name="preferredStyles" value="indie"> Indie</label>
-                    <label><input type="checkbox" name="preferredStyles" value="pop"> Pop</label>
-                    <label><input type="checkbox" name="preferredStyles" value="funk"> Funk</label>
-                    <label><input type="checkbox" name="preferredStyles" value="metal"> Metal</label>
-                    <label><input type="checkbox" name="preferredStyles" value="jazz"> Jazz</label>
-                    <label><input type="checkbox" name="preferredStyles" value="electronica"> Electrónica</label>
-                    <label><input type="checkbox" name="preferredStyles" value="urbana"> Urbana / hip-hop</label>
-                    <label><input type="checkbox" name="preferredStyles" value="folk"> Folk / acústico</label>
-                    <label><input type="checkbox" name="preferredStyles" value="otro"> Otro</label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="musicReferences">Referencias musicales</label>
-                <input type="text" id="musicReferences" name="musicReferences" placeholder="Ej. Arctic Monkeys, Vetusta Morla, Foo Fighters, Amy Winehouse…">
+            <div class="step-nav">
+                <button type="button" class="btn btn-secondary btn-prev" data-prev="1">Atrás</button>
+                <button type="button" class="btn btn-next" data-next="3">Siguiente</button>
             </div>
         </div>
 
-        <!-- SECCION 3: Que buscas ahora -->
-        <div class="card">
-            <h3>¿Qué buscas ahora?</h3>
-
-            <div class="form-group">
-                <label>¿Qué estás buscando principalmente? *</label>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="goals" value="hobby"> Tocar como hobby</label>
-                    <label><input type="checkbox" name="goals" value="ensayar"> Encontrar gente para ensayar</label>
-                    <label><input type="checkbox" name="goals" value="montar_grupo"> Montar un grupo desde cero</label>
-                    <label><input type="checkbox" name="goals" value="unirme_grupo"> Unirme a un grupo que ya exista</label>
-                    <label><input type="checkbox" name="goals" value="directo"> Dar conciertos o tocar en directo</label>
-                    <label><input type="checkbox" name="goals" value="grabar"> Grabar música</label>
-                    <label><input type="checkbox" name="goals" value="crear"> Crear canciones propias</label>
-                    <label><input type="checkbox" name="goals" value="covers"> Hacer versiones / covers</label>
-                    <label><input type="checkbox" name="goals" value="conocer"> Conocer músicos de mi zona</label>
-                    <label><input type="checkbox" name="goals" value="no_lo_tengo_claro"> Todavía no lo tengo claro</label>
+        <!-- STEP 3: Buscas -->
+        <div class="step-content hidden" data-step="3">
+            <div class="card">
+                <h3>¿Qué buscas ahora?</h3>
+                <div class="form-group">
+                    <label>¿Qué buscas principalmente ahora mismo? *</label>
+                    <div class="radio-group" id="primaryGoalGroup">
+                        <label><input type="radio" name="primaryGoal" value="tocar_ocasional" required> Encontrar gente para tocar de vez en cuando</label>
+                        <label><input type="radio" name="primaryGoal" value="montar_grupo"> Montar un grupo desde cero</label>
+                        <label><input type="radio" name="primaryGoal" value="unirme_grupo"> Unirme a un grupo que ya exista</label>
+                        <label><input type="radio" name="primaryGoal" value="ensayar_regular"> Encontrar gente para ensayar con cierta regularidad</label>
+                        <label><input type="radio" name="primaryGoal" value="conocer_zona"> Conocer músicos de mi zona</label>
+                        <label><input type="radio" name="primaryGoal" value="jams"> Participar en jams o encuentros musicales</label>
+                        <label><input type="radio" name="primaryGoal" value="no_lo_tengo_claro"> Todavía no lo tengo claro</label>
+                    </div>
+                    <div class="error-msg" id="primaryGoalError">Selecciona una opción</div>
                 </div>
-            </div>
-
-            <div class="inline-field">
+                <div class="form-group">
+                    <label>Además, ¿qué te gustaría hacer más adelante?</label>
+                    <div class="microcopy">Selecciona las que te interesen, o ninguna si todavía no lo sabes.</div>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="futureInterests" value="directo"> Dar conciertos o tocar en directo</label>
+                        <label><input type="checkbox" name="futureInterests" value="grabar"> Grabar música</label>
+                        <label><input type="checkbox" name="futureInterests" value="crear"> Crear canciones propias</label>
+                        <label><input type="checkbox" name="futureInterests" value="covers"> Hacer versiones / covers</label>
+                        <label><input type="checkbox" name="futureInterests" value="estable"> Tener un proyecto más estable</label>
+                        <label><input type="checkbox" name="futureInterests" value="mejorar"> Mejorar tocando con otras personas</label>
+                        <label><input type="checkbox" name="futureInterests" value="no_lo_se"> No lo sé todavía</label>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label>¿Qué nivel de compromiso buscas? *</label>
                     <div class="radio-group">
@@ -499,134 +696,166 @@
                         <label><input type="radio" name="currentlyPlaying" value="primera_vez"> No, sería mi primera experiencia tocando con otros</label>
                     </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label>¿Cuál suele ser tu disponibilidad? *</label>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="availability" value="semana_manana"> Entre semana por la mañana</label>
-                    <label><input type="checkbox" name="availability" value="semana_tarde"> Entre semana por la tarde</label>
-                    <label><input type="checkbox" name="availability" value="semana_noche"> Entre semana por la noche</label>
-                    <label><input type="checkbox" name="availability" value="finde_manana"> Fines de semana por la mañana</label>
-                    <label><input type="checkbox" name="availability" value="finde_tarde"> Fines de semana por la tarde</label>
-                    <label><input type="checkbox" name="availability" value="finde_noche"> Fines de semana por la noche</label>
+                <div class="form-group">
+                    <label>Disponibilidad horaria *</label>
+                    <div class="avail-matrix">
+                        <div></div>
+                        <div class="matrix-header">Entre semana</div>
+                        <div class="matrix-header">Fin de semana</div>
+                        <div class="matrix-label">Mañana</div>
+                        <div class="matrix-cell"><label><input type="checkbox" name="availabilityWeekdayMorning" value="1"></label></div>
+                        <div class="matrix-cell"><label><input type="checkbox" name="availabilityWeekendMorning" value="1"></label></div>
+                        <div class="matrix-label">Tarde</div>
+                        <div class="matrix-cell"><label><input type="checkbox" name="availabilityWeekdayAfternoon" value="1"></label></div>
+                        <div class="matrix-cell"><label><input type="checkbox" name="availabilityWeekendAfternoon" value="1"></label></div>
+                        <div class="matrix-label">Noche</div>
+                        <div class="matrix-cell"><label><input type="checkbox" name="availabilityWeekdayNight" value="1"></label></div>
+                        <div class="matrix-cell"><label><input type="checkbox" name="availabilityWeekendNight" value="1"></label></div>
+                    </div>
+                    <div class="error-msg" id="availabilityError">Selecciona al menos una franja</div>
                 </div>
+                <div class="form-group">
+                    <label for="desiredFrequency">¿Con qué frecuencia te gustaría quedar para tocar o ensayar? *</label>
+                    <select id="desiredFrequency" name="desiredFrequency" required>
+                        <option value="">Selecciona</option>
+                        <option value="puntual">De forma puntual</option>
+                        <option value="1_mes">Una vez al mes</option>
+                        <option value="2_mes">Dos veces al mes</option>
+                        <option value="1_semana">Una vez por semana</option>
+                        <option value="2_semana">Dos o más veces por semana</option>
+                        <option value="no_lo_tengo_claro">No lo tengo claro</option>
+                    </select>
+                </div>
+            </div>
+            <div class="step-nav">
+                <button type="button" class="btn btn-secondary btn-prev" data-prev="2">Atrás</button>
+                <button type="button" class="btn btn-next" data-next="4">Siguiente</button>
             </div>
         </div>
 
-        <!-- SECCION 4: Experiencia encontrando musicos -->
-        <div class="card">
-            <h3>Tu experiencia encontrando músicos</h3>
-
-            <div class="inline-field">
-                <div class="form-group">
-                    <label>¿Has intentado encontrar músicos alguna vez? *</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="searchedBefore" value="si" required> Sí</label>
-                        <label><input type="radio" name="searchedBefore" value="no"> No</label>
-                        <label><input type="radio" name="searchedBefore" value="lo_pense"> Lo he pensado, pero no lo he hecho</label>
+        <!-- STEP 4: Experiencia -->
+        <div class="step-content hidden" data-step="4">
+            <div class="card">
+                <h3>Tu experiencia encontrando músicos</h3>
+                <div class="inline-field">
+                    <div class="form-group">
+                        <label>¿Has intentado encontrar músicos alguna vez? *</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="searchedBefore" value="si" required> Sí</label>
+                            <label><input type="radio" name="searchedBefore" value="no"> No</label>
+                            <label><input type="radio" name="searchedBefore" value="lo_pense"> Lo he pensado, pero no lo he hecho</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>¿Llegaste a ensayar con alguien? *</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="rehearsedBefore" value="si" required> Sí</label>
+                            <label><input type="radio" name="rehearsedBefore" value="no"> No</label>
+                            <label><input type="radio" name="rehearsedBefore" value="todavia_no"> Todavía no</label>
+                            <label><input type="radio" name="rehearsedBefore" value="no_aplica"> No aplica</label>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>¿Llegaste a ensayar con alguien? *</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="rehearsedBefore" value="si" required> Sí</label>
-                        <label><input type="radio" name="rehearsedBefore" value="no"> No</label>
-                        <label><input type="radio" name="rehearsedBefore" value="todavia_no"> Todavía no</label>
-                        <label><input type="radio" name="rehearsedBefore" value="no_aplica"> No aplica</label>
+                    <label>¿Dónde has intentado encontrar gente para tocar o dónde buscarías? *</label>
+                    <div class="checkbox-group" id="searchChannelsGroup">
+                        <label><input type="checkbox" name="searchChannels" value="redes_sociales"> Redes sociales</label>
+                        <label><input type="checkbox" name="searchChannels" value="grupos_whatsapp"> Grupos de WhatsApp / Telegram</label>
+                        <label><input type="checkbox" name="searchChannels" value="foros"> Foros o páginas especializadas</label>
+                        <label><input type="checkbox" name="searchChannels" value="boca_a_boca"> Boca a boca / amigos</label>
+                        <label><input type="checkbox" name="searchChannels" value="escuela"> Escuela de música / profesor</label>
+                        <label><input type="checkbox" name="searchChannels" value="salas"> Salas de ensayo</label>
+                        <label><input type="checkbox" name="searchChannels" value="conciertos"> Conciertos o jams</label>
+                        <label><input type="checkbox" name="searchChannels" value="apps"> Apps o plataformas</label>
+                        <label><input type="checkbox" name="searchChannels" value="carteles"> Carteles o anuncios físicos</label>
+                        <label><input type="checkbox" name="searchChannels" value="otro"> Otro</label>
+                    </div>
+                    <div class="error-msg" id="searchChannelsError">Selecciona al menos una opción</div>
+                </div>
+                <div class="form-group">
+                    <label for="biggestChallenge">¿Qué fue lo más difícil o frustrante de ese proceso?</label>
+                    <textarea id="biggestChallenge" name="biggestChallenge" rows="2" placeholder="Ej. encontrar gente comprometida, horarios compatibles, mismo nivel, gustos parecidos, confianza, falta de respuesta…"></textarea>
+                </div>
+            </div>
+            <div class="step-nav">
+                <button type="button" class="btn btn-secondary btn-prev" data-prev="3">Atrás</button>
+                <button type="button" class="btn btn-next" data-next="5">Siguiente</button>
+            </div>
+        </div>
+
+        <!-- STEP 5: Encaje -->
+        <div class="step-content hidden" data-step="5">
+            <div class="card">
+                <h3>¿Qué hace que alguien encaje contigo?</h3>
+                <div class="form-group" id="prioritiesGroup">
+                    <label>¿Qué es más importante para ti al encontrar músicos? * <span style="font-weight:400;color:#727272">(elige máximo 3)</span></label>
+                    <div class="checkbox-group" id="prioritiesCheckboxes">
+                        <label><input type="checkbox" name="matchPriorities" value="nivel"> Nivel musical parecido</label>
+                        <label><input type="checkbox" name="matchPriorities" value="estilo"> Estilo musical similar</label>
+                        <label><input type="checkbox" name="matchPriorities" value="cercania"> Vivir cerca</label>
+                        <label><input type="checkbox" name="matchPriorities" value="edad"> Edad aproximada</label>
+                        <label><input type="checkbox" name="matchPriorities" value="disponibilidad"> Disponibilidad compatible</label>
+                        <label><input type="checkbox" name="matchPriorities" value="compromiso"> Nivel de compromiso</label>
+                        <label><input type="checkbox" name="matchPriorities" value="feeling"> Buen ambiente / feeling</label>
+                        <label><input type="checkbox" name="matchPriorities" value="objetivo"> Objetivo musical parecido</label>
+                        <label><input type="checkbox" name="matchPriorities" value="experiencia"> Experiencia previa</label>
+                    </div>
+                    <div class="max-hint" id="prioritiesHint"></div>
+                    <div class="error-msg" id="prioritiesError">Selecciona entre 1 y 3 opciones</div>
+                </div>
+                <div class="form-group">
+                    <label>¿Qué te ayudaría a sentirte cómodo/a quedando con músicos que no conoces? *</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="trustFactors" value="perfil_completo"> Ver un perfil completo</label>
+                        <label><input type="checkbox" name="trustFactors" value="demo"> Escuchar una demo o vídeo tocando</label>
+                        <label><input type="checkbox" name="trustFactors" value="redes"> Ver Instagram o redes sociales</label>
+                        <label><input type="checkbox" name="trustFactors" value="videollamada"> Una primera videollamada</label>
+                        <label><input type="checkbox" name="trustFactors" value="grupo_moderado"> Que haya un grupo moderado</label>
+                        <label><input type="checkbox" name="trustFactors" value="jam"> Quedar en una jam o evento abierto</label>
+                        <label><input type="checkbox" name="trustFactors" value="expectativas_claras"> Tener expectativas claras antes de quedar</label>
+                        <label><input type="checkbox" name="trustFactors" value="sala_conocida"> Que la primera sesión sea en una sala conocida</label>
+                        <label><input type="checkbox" name="trustFactors" value="referencias"> Leer referencias o valoraciones</label>
+                        <label><input type="checkbox" name="trustFactors" value="no_me_preocupa"> No me preocupa especialmente</label>
                     </div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label>¿Dónde has intentado encontrar gente para tocar o dónde buscarías? *</label>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="searchChannels" value="redes_sociales"> Redes sociales</label>
-                    <label><input type="checkbox" name="searchChannels" value="grupos_whatsapp"> Grupos de WhatsApp / Telegram</label>
-                    <label><input type="checkbox" name="searchChannels" value="foros"> Foros o páginas especializadas</label>
-                    <label><input type="checkbox" name="searchChannels" value="boca_a_boca"> Boca a boca / amigos</label>
-                    <label><input type="checkbox" name="searchChannels" value="escuela"> Escuela de música / profesor</label>
-                    <label><input type="checkbox" name="searchChannels" value="salas"> Salas de ensayo</label>
-                    <label><input type="checkbox" name="searchChannels" value="conciertos"> Conciertos o jams</label>
-                    <label><input type="checkbox" name="searchChannels" value="apps"> Apps o plataformas</label>
-                    <label><input type="checkbox" name="searchChannels" value="carteles"> Carteles o anuncios físicos</label>
-                    <label><input type="checkbox" name="searchChannels" value="otro"> Otro</label>
+                <div class="form-group">
+                    <label for="goodExperience">¿Qué tendría que pasar para que consideres que la experiencia ha merecido la pena?</label>
+                    <textarea id="goodExperience" name="goodExperience" rows="2" placeholder="Ej. encontrar 2-3 personas con gustos parecidos, organizar un primer ensayo, sentir buen ambiente, tener un grupo estable…"></textarea>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label for="biggestChallenge">¿Qué fue lo más difícil o frustrante de ese proceso?</label>
-                <textarea id="biggestChallenge" name="biggestChallenge" rows="2" placeholder="Ej. encontrar gente comprometida, horarios compatibles, mismo nivel, gustos parecidos, confianza, falta de respuesta…"></textarea>
+            <div class="step-nav">
+                <button type="button" class="btn btn-secondary btn-prev" data-prev="4">Atrás</button>
+                <button type="button" class="btn btn-next" data-next="6">Siguiente</button>
             </div>
         </div>
 
-        <!-- SECCION 5: Que hace que alguien encaje -->
-        <div class="card">
-            <h3>¿Qué hace que alguien encaje contigo?</h3>
-
-            <div class="form-group" id="prioritiesGroup">
-                <label>¿Qué es más importante para ti al encontrar músicos? * <span style="font-weight:400;color:#727272">(elige máximo 3)</span></label>
-                <div class="checkbox-group" id="prioritiesCheckboxes">
-                    <label><input type="checkbox" name="matchPriorities" value="nivel"> Nivel musical parecido</label>
-                    <label><input type="checkbox" name="matchPriorities" value="estilo"> Estilo musical similar</label>
-                    <label><input type="checkbox" name="matchPriorities" value="cercania"> Vivir cerca</label>
-                    <label><input type="checkbox" name="matchPriorities" value="edad"> Edad aproximada</label>
-                    <label><input type="checkbox" name="matchPriorities" value="disponibilidad"> Disponibilidad compatible</label>
-                    <label><input type="checkbox" name="matchPriorities" value="compromiso"> Nivel de compromiso</label>
-                    <label><input type="checkbox" name="matchPriorities" value="feeling"> Buen ambiente / feeling</label>
-                    <label><input type="checkbox" name="matchPriorities" value="objetivo"> Objetivo musical parecido</label>
-                    <label><input type="checkbox" name="matchPriorities" value="experiencia"> Experiencia previa</label>
+        <!-- STEP 6: Enviar -->
+        <div class="step-content hidden" data-step="6">
+            <div class="card">
+                <h3>Participación en el estudio</h3>
+                <div class="form-group">
+                    <label>¿Te gustaría que te contactemos si seguimos avanzando? *</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="researchParticipation" value="si_quiero" required> Sí, me interesa participar</label>
+                        <label><input type="radio" name="researchParticipation" value="solo_preguntas"> Sí, pero solo para responder alguna pregunta más</label>
+                        <label><input type="radio" name="researchParticipation" value="quizas"> Quizá más adelante</label>
+                        <label><input type="radio" name="researchParticipation" value="no"> No por ahora</label>
+                    </div>
                 </div>
-                <div class="max-hint" id="prioritiesHint"></div>
-                <div class="error-msg" id="prioritiesError">Selecciona entre 1 y 3 opciones</div>
-            </div>
-
-            <div class="form-group">
-                <label>¿Qué te ayudaría a sentirte cómodo/a quedando con músicos que no conoces? *</label>
-                <div class="checkbox-group">
-                    <label><input type="checkbox" name="trustFactors" value="perfil_completo"> Ver un perfil completo</label>
-                    <label><input type="checkbox" name="trustFactors" value="demo"> Escuchar una demo o vídeo tocando</label>
-                    <label><input type="checkbox" name="trustFactors" value="redes"> Ver Instagram o redes sociales</label>
-                    <label><input type="checkbox" name="trustFactors" value="videollamada"> Una primera videollamada</label>
-                    <label><input type="checkbox" name="trustFactors" value="grupo_moderado"> Que haya un grupo moderado</label>
-                    <label><input type="checkbox" name="trustFactors" value="jam"> Quedar en una jam o evento abierto</label>
-                    <label><input type="checkbox" name="trustFactors" value="expectativas_claras"> Tener expectativas claras antes de quedar</label>
-                    <label><input type="checkbox" name="trustFactors" value="sala_conocida"> Que la primera sesión sea en una sala conocida</label>
-                    <label><input type="checkbox" name="trustFactors" value="referencias"> Leer referencias o valoraciones</label>
-                    <label><input type="checkbox" name="trustFactors" value="no_me_preocupa"> No me preocupa especialmente</label>
+                <div class="form-group">
+                    <label class="checkbox-single">
+                        <input type="checkbox" name="consent" value="acepto" required>
+                        Acepto que me contactéis en relación con este estudio y con posibles iniciativas para conectar músicos. *
+                    </label>
+                    <div class="error-msg" id="consentError">Debes aceptar para continuar</div>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label for="goodExperience">¿Qué tendría que pasar para que consideres que la experiencia ha merecido la pena?</label>
-                <textarea id="goodExperience" name="goodExperience" rows="2" placeholder="Ej. encontrar 2-3 personas con gustos parecidos, organizar un primer ensayo, sentir buen ambiente, tener un grupo estable…"></textarea>
+            <div class="step-nav">
+                <button type="button" class="btn btn-secondary btn-prev" data-prev="5">Atrás</button>
+                <button type="submit" class="btn">Enviar respuestas</button>
             </div>
         </div>
 
-        <!-- SECCION 6: Participacion -->
-        <div class="card">
-            <h3>Participación en el estudio</h3>
-
-            <div class="form-group">
-                <label>¿Te gustaría que te contactemos si seguimos avanzando? *</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="researchParticipation" value="si_quiero" required> Sí, me interesa participar</label>
-                    <label><input type="radio" name="researchParticipation" value="solo_preguntas"> Sí, pero solo para responder alguna pregunta más</label>
-                    <label><input type="radio" name="researchParticipation" value="quizas"> Quizá más adelante</label>
-                    <label><input type="radio" name="researchParticipation" value="no"> No por ahora</label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="checkbox-single">
-                    <input type="checkbox" name="consent" value="acepto" required>
-                    Acepto que me contactéis en relación con este estudio y con posibles iniciativas para conectar músicos. *
-                </label>
-                <div class="error-msg" id="consentError">Debes aceptar para continuar</div>
-            </div>
-        </div>
-
-        <button type="submit" class="btn">Enviar respuestas</button>
     </form>
 
     <div class="success-msg" id="successMsg">
@@ -637,74 +866,302 @@
 
 <script>
     const API_URL = 'https://tu-backend.com/api';
-
     let counts = { musicos: 2, bandas: 1 };
+    const TOTAL_STEPS = 6;
+    let currentStep = 1;
+    let completedSteps = new Set();
+    let tags = [];
 
-    const ARRAY_FIELDS = ['secondaryInstruments', 'preferredStyles', 'goals', 'availability', 'searchChannels', 'matchPriorities', 'trustFactors'];
-    const MAX_PRIORITIES = 3;
+    const ARTISTS_BY_STYLE = {
+        rock: ['Foo Fighters', 'Queen', 'Led Zeppelin', 'Arctic Monkeys', 'The Rolling Stones'],
+        indie: ['Vetusta Morla', 'Love of Lesbian', 'The Strokes', 'Supersubmarina', 'Izal'],
+        pop: ['Rosalía', 'Dua Lipa', 'Coldplay', 'Aitana', 'Taylor Swift'],
+        funk: ['Vulfpeck', 'Jamiroquai', 'Prince', 'Red Hot Chili Peppers', 'Chic'],
+        metal: ['Metallica', 'Iron Maiden', 'System of a Down', 'Slipknot', 'Black Sabbath'],
+        jazz: ['Miles Davis', 'John Coltrane', 'Ella Fitzgerald', 'Chet Baker', 'Snarky Puppy'],
+        electronica: ['Daft Punk', 'Fred again..', 'The Chemical Brothers', 'Disclosure', 'Bicep'],
+        urbana: ['Kase.O', 'Nathy Peluso', 'Kendrick Lamar', 'C. Tangana', 'Trueno'],
+        folk: ['Bob Dylan', 'Bon Iver', 'Damien Rice', 'Quique González', 'José González'],
+        otro: []
+    };
 
+    // Progress
     function actualizarProgreso() {
         document.getElementById('countMusicos').textContent = counts.musicos;
         document.getElementById('countBandas').textContent = counts.bandas;
         document.getElementById('barMusicos').style.width = Math.min(100, (counts.musicos / 50) * 100) + '%';
         document.getElementById('barBandas').style.width = Math.min(100, (counts.bandas / 10) * 100) + '%';
     }
-
     async function cargarProgreso() {
-        try {
-            const res = await fetch(API_URL + '/progress');
-            if (res.ok) counts = await res.json();
-        } catch {}
+        try { const r = await fetch(API_URL + '/progress'); if (r.ok) counts = await r.json(); } catch {}
         actualizarProgreso();
     }
 
+    // Role selector
     document.querySelectorAll('.role-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            const role = this.dataset.role;
-            document.getElementById('rolInput').value = role;
+            document.getElementById('rolInput').value = this.dataset.role;
             document.querySelector('.intro').classList.add('hidden');
             document.getElementById('roleSelector').classList.add('hidden');
+            document.getElementById('stepper').classList.remove('hidden');
+            document.getElementById('stepperMobile').classList.remove('hidden');
             document.getElementById('surveyForm').classList.remove('hidden');
-            window.scrollTo({ top: document.getElementById('surveyForm').offsetTop - 20, behavior: 'smooth' });
+            mostrarPaso(1);
+            window.scrollTo({ top: document.getElementById('stepper').offsetTop - 20, behavior: 'smooth' });
         });
     });
 
-    // Max 3 for priorities
-    document.getElementById('prioritiesCheckboxes').addEventListener('change', function(e) {
-        const checked = this.querySelectorAll('input:checked');
-        const hint = document.getElementById('prioritiesHint');
-        const error = document.getElementById('prioritiesError');
-        if (checked.length > MAX_PRIORITIES) {
-            e.target.checked = false;
-        }
-        const remaining = MAX_PRIORITIES - this.querySelectorAll('input:checked').length;
-        hint.textContent = remaining > 0 ? 'Puedes elegir ' + remaining + ' más' : 'Máximo alcanzado';
+    // Stepper
+    function mostrarPaso(n) {
+        currentStep = n;
+        document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+        const paso = document.querySelector(`.step-content[data-step="${n}"]`);
+        if (paso) paso.classList.remove('hidden');
+
+        document.querySelectorAll('.step-item').forEach(el => {
+            const s = parseInt(el.dataset.step);
+            el.classList.toggle('active', s === n);
+            el.classList.toggle('completed', completedSteps.has(s));
+        });
+
+        document.getElementById('mobileStepLabel').textContent = n;
+        document.getElementById('mobileProgressFill').style.width = ((n / TOTAL_STEPS) * 100) + '%';
+        window.scrollTo({ top: document.getElementById('stepper').offsetTop - 20, behavior: 'smooth' });
+    }
+
+    // Click on completed step to go back
+    document.querySelectorAll('.step-item').forEach(el => {
+        el.addEventListener('click', function() {
+            const s = parseInt(this.dataset.step);
+            if (completedSteps.has(s) || s < currentStep) {
+                mostrarPaso(s);
+            }
+        });
     });
 
+    // Next/Prev
+    document.querySelectorAll('.btn-next').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const paso = parseInt(this.closest('.step-content').dataset.step);
+            if (validarPaso(paso)) {
+                completedSteps.add(paso);
+                const next = parseInt(this.dataset.next);
+                mostrarPaso(next);
+                actualizarStepper();
+            }
+        });
+    });
+
+    document.querySelectorAll('.btn-prev').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const prev = parseInt(this.dataset.prev);
+            mostrarPaso(prev);
+        });
+    });
+
+    function actualizarStepper() {
+        document.querySelectorAll('.step-item').forEach(el => {
+            const s = parseInt(el.dataset.step);
+            el.classList.toggle('completed', completedSteps.has(s));
+        });
+    }
+
+    // Validation per step
+    function validarPaso(n) {
+        limpiarErrores();
+        if (n === 1) {
+            const email = document.getElementById('email');
+            const name = document.getElementById('name');
+            const city = document.getElementById('cityZone');
+            let ok = true;
+            if (!email.value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+                marcarError(email); mostrarError('emailError'); ok = false;
+            }
+            if (!name.value.trim()) { marcarError(name); ok = false; }
+            if (!city.value.trim()) { marcarError(city); ok = false; }
+            return ok;
+        }
+        if (n === 2) {
+            const inst = document.getElementById('mainInstrument');
+            const level = document.getElementById('level');
+            const styles = document.querySelectorAll('input[name="preferredStyles"]:checked');
+            let ok = true;
+            if (!inst.value) { marcarError(inst); ok = false; }
+            if (!level.value) { marcarError(level); ok = false; }
+            if (styles.length === 0) { ok = false; } // visual hint
+            if (styles.length === 0) {
+                document.getElementById('stylesGroup').closest('.form-group').querySelector('.error-msg') || mostrarError('stylesError');
+                const el = document.createElement('div'); el.className = 'error-msg show'; el.id = 'stylesError';
+                el.textContent = 'Selecciona al menos un estilo';
+                const g = document.getElementById('stylesGroup').closest('.form-group');
+                if (!document.getElementById('stylesError')) g.appendChild(el);
+                ok = false;
+            }
+            return ok;
+        }
+        if (n === 3) {
+            const goal = document.querySelector('input[name="primaryGoal"]:checked');
+            const commitment = document.querySelector('input[name="commitment"]:checked');
+            const playing = document.querySelector('input[name="currentlyPlaying"]:checked');
+            const freq = document.getElementById('desiredFrequency');
+            const hasAvail = ['availabilityWeekdayMorning','availabilityWeekdayAfternoon','availabilityWeekdayNight',
+                'availabilityWeekendMorning','availabilityWeekendAfternoon','availabilityWeekendNight']
+                .some(id => document.getElementById(id).checked);
+            let ok = true;
+            if (!goal) { mostrarError('primaryGoalError'); ok = false; }
+            if (!commitment) { ok = false; }
+            if (!playing) { ok = false; }
+            if (!freq.value) { marcarError(freq); ok = false; }
+            if (!hasAvail) { mostrarError('availabilityError'); ok = false; }
+            return ok;
+        }
+        if (n === 4) {
+            const searched = document.querySelector('input[name="searchedBefore"]:checked');
+            const rehearsed = document.querySelector('input[name="rehearsedBefore"]:checked');
+            const channels = document.querySelectorAll('input[name="searchChannels"]:checked');
+            let ok = true;
+            if (!searched) { ok = false; }
+            if (!rehearsed) { ok = false; }
+            if (channels.length === 0) { mostrarError('searchChannelsError'); ok = false; }
+            return ok;
+        }
+        if (n === 5) {
+            const priorities = document.querySelectorAll('input[name="matchPriorities"]:checked');
+            const trust = document.querySelectorAll('input[name="trustFactors"]:checked');
+            let ok = true;
+            if (priorities.length === 0 || priorities.length > 3) { mostrarError('prioritiesError'); ok = false; }
+            if (trust.length === 0) { ok = false; }
+            return ok;
+        }
+        return true;
+    }
+
+    // Instrument exclusion
+    document.getElementById('mainInstrument').addEventListener('change', function() {
+        const val = this.value;
+        const labels = document.querySelectorAll('#secondaryInstrumentsGroup label');
+        labels.forEach(label => {
+            const cb = label.querySelector('input');
+            if (cb.value === val) {
+                label.classList.add('disabled');
+                cb.checked = false;
+            } else {
+                label.classList.remove('disabled');
+            }
+        });
+    });
+
+    // Max 3 priorities
+    document.getElementById('prioritiesCheckboxes').addEventListener('change', function(e) {
+        const checked = this.querySelectorAll('input:checked');
+        if (checked.length > 3) { e.target.checked = false; }
+        const remaining = 3 - this.querySelectorAll('input:checked').length;
+        document.getElementById('prioritiesHint').textContent = remaining > 0 ? 'Puedes elegir ' + remaining + ' más' : 'Máximo alcanzado';
+    });
+
+    // Music references autocomplete
+    document.getElementById('stylesGroup').addEventListener('change', actualizarSugerencias);
+    function actualizarSugerencias() {
+        const selected = Array.from(document.querySelectorAll('input[name="preferredStyles"]:checked')).map(cb => cb.value);
+        const container = document.getElementById('suggestionsContainer');
+        const label = document.getElementById('suggestionsLabel');
+        container.innerHTML = '';
+        if (selected.length === 0) {
+            label.textContent = 'Selecciona primero algún estilo musical para ver sugerencias';
+            return;
+        }
+        label.textContent = 'Sugerencias basadas en tus estilos:';
+        const artists = new Set();
+        selected.forEach(style => {
+            (ARTISTS_BY_STYLE[style] || []).forEach(a => artists.add(a));
+        });
+        artists.forEach(artist => {
+            if (tags.includes(artist)) return;
+            const chip = document.createElement('button');
+            chip.type = 'button';
+            chip.className = 'suggestion-chip';
+            chip.textContent = artist;
+            chip.addEventListener('click', function(e) {
+                e.preventDefault();
+                addTag(artist);
+                this.remove();
+            });
+            container.appendChild(chip);
+        });
+    }
+
+    const inputRef = document.getElementById('musicReferencesInput');
+    inputRef.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const val = this.value.trim();
+            if (val && !tags.includes(val)) {
+                addTag(val);
+                this.value = '';
+                // remove matching suggestion
+                document.querySelectorAll('.suggestion-chip').forEach(chip => {
+                    if (chip.textContent.toLowerCase() === val.toLowerCase()) chip.remove();
+                });
+            }
+        }
+    });
+
+    function addTag(text) {
+        if (tags.includes(text)) return;
+        tags.push(text);
+        renderTags();
+        actualizarHiddenRefs();
+    }
+
+    function removeTag(text) {
+        tags = tags.filter(t => t !== text);
+        renderTags();
+        actualizarHiddenRefs();
+        actualizarSugerencias();
+    }
+
+    function renderTags() {
+        const container = document.getElementById('tagsContainer');
+        container.innerHTML = '';
+        tags.forEach(t => {
+            const div = document.createElement('span');
+            div.className = 'tag';
+            div.innerHTML = t + ' <span class="tag-remove" data-tag="' + t.replace(/"/g, '&quot;') + '">&times;</span>';
+            div.querySelector('.tag-remove').addEventListener('click', function() {
+                removeTag(t);
+            });
+            container.appendChild(div);
+        });
+    }
+
+    function actualizarHiddenRefs() {
+        document.getElementById('musicReferencesHidden').value = tags.join(', ');
+    }
+
+    // Helpers
     function limpiarErrores() {
         document.querySelectorAll('.error-msg').forEach(el => el.classList.remove('show'));
         document.querySelectorAll('.error-border').forEach(el => el.classList.remove('error-border'));
     }
-
     function mostrarError(id) {
         const el = document.getElementById(id);
         if (el) el.classList.add('show');
     }
-
     function marcarError(input) {
         input.classList.add('error-border');
     }
 
+    // Submit
     document.getElementById('surveyForm').addEventListener('submit', async function(e) {
         e.preventDefault();
         limpiarErrores();
+        if (!validarPaso(6)) return;
 
         const form = e.target;
         const formData = new FormData(form);
         const data = {};
-        let valido = true;
+        const ARRAY_FIELDS = ['secondaryInstruments', 'preferredStyles', 'futureInterests', 'searchChannels', 'matchPriorities', 'trustFactors'];
 
-        // Build data object
         formData.forEach((value, key) => {
             if (ARRAY_FIELDS.includes(key)) {
                 if (!data[key]) data[key] = [];
@@ -714,31 +1171,12 @@
             }
         });
 
-        // Email validation
         const email = document.getElementById('email');
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!data.email || !emailRegex.test(data.email)) {
-            marcarError(email);
-            mostrarError('emailError');
-            valido = false;
+        if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+            marcarError(email); mostrarError('emailError'); return;
         }
+        if (!data.consent) { mostrarError('consentError'); return; }
 
-        // Consent
-        if (!data.consent) {
-            mostrarError('consentError');
-            valido = false;
-        }
-
-        // Priorities: required + max 3
-        const priorities = (data.matchPriorities || []);
-        if (priorities.length === 0 || priorities.length > MAX_PRIORITIES) {
-            mostrarError('prioritiesError');
-            valido = false;
-        }
-
-        if (!valido) return;
-
-        // Send
         try {
             await fetch(API_URL + '/survey', {
                 method: 'POST',
@@ -747,15 +1185,13 @@
             });
         } catch {}
 
-        // Update progress
-        if (data.rol === 'banda') {
-            counts.bandas = Math.min(10, counts.bandas + 1);
-        } else {
-            counts.musicos = Math.min(50, counts.musicos + 1);
-        }
+        if (data.rol === 'banda') counts.bandas = Math.min(10, counts.bandas + 1);
+        else counts.musicos = Math.min(50, counts.musicos + 1);
         actualizarProgreso();
 
         form.classList.add('hidden');
+        document.getElementById('stepper').classList.add('hidden');
+        document.getElementById('stepperMobile').classList.add('hidden');
         document.getElementById('successMsg').classList.add('show');
         console.log('Survey response:', JSON.stringify(data, null, 2));
     });
