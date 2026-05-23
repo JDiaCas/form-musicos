@@ -1667,13 +1667,19 @@
         }
         if (!data.consent) { mostrarError('consentError'); return; }
 
+        const submitBtn = e.target.querySelector('.btn[type="submit"]');
+        if (submitBtn) submitBtn.disabled = true;
+
         try {
             await fetch(CONFIG.SHEETS_ENDPOINT, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain' },
                 body: JSON.stringify(data)
             });
-        } catch {}
+        } catch (err) {
+            console.warn('El backend no está disponible. Los datos se han guardado localmente.', err);
+        }
 
         if (data.rol === 'banda') counts.bandas = Math.min(CONFIG.COMMUNITY_TARGETS.bands, counts.bandas + 1);
         else counts.musicos = Math.min(CONFIG.COMMUNITY_TARGETS.musicians, counts.musicos + 1);
