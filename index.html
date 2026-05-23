@@ -1083,9 +1083,9 @@
     function updateRehearsedState(type) {
         const searchedName = type === 'band' ? 'bandSearchedBefore' : 'searchedBefore';
         const searched = document.querySelector('input[name="' + searchedName + '"]:checked');
-        const groupId = (type === 'band' ? 'band' : '') + 'RehearsedGroup';
+        const groupId = type === 'band' ? 'bandRehearsedGroup' : 'rehearsedGroup';
         const group = document.getElementById(groupId);
-        const microcopyId = (type === 'band' ? 'band' : '') + 'RehearsedMicrocopy';
+        const microcopyId = type === 'band' ? 'bandRehearsedMicrocopy' : 'rehearsedMicrocopy';
         const microcopy = document.getElementById(microcopyId);
 
         if (!group) return;
