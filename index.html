@@ -187,6 +187,7 @@
         .progress-header { display: flex; justify-content: space-between; font-size: 0.85rem; color: #b3b3b3; margin-bottom: 6px; }
         .progress-bar { height: 8px; background: #282828; border-radius: 4px; overflow: hidden; }
         .progress-fill { height: 100%; border-radius: 4px; background: #1DB954; transition: width 0.6s ease; }
+        .progress-loading { font-size: 0.75rem; color: #555; text-align: center; margin-bottom: 20px; font-style: italic; }
 
         @media (max-width: 600px) {
             .card { padding: 24px 18px; }
@@ -271,6 +272,7 @@
             <div class="progress-header"><span>Bandas</span><span><span id="countBandas">0</span> / <span id="targetBandas">100</span></span></div>
             <div class="progress-bar"><div class="progress-fill" id="barBandas" style="width:0%"></div></div>
         </div>
+        <div class="progress-loading hidden" id="progressLoading">Actualizando progreso…</div>
 
         <h3 style="text-align:center;font-size:1.1rem;margin-bottom:14px">¿Cómo participas?</h3>
         <p class="hint" style="text-align:center">Haz clic en una opción para empezar</p>
@@ -1052,15 +1054,47 @@
         document.getElementById('barMusicos').style.width = Math.min(100, (counts.musicos / targets.musicians) * 100) + '%';
         document.getElementById('barBandas').style.width = Math.min(100, (counts.bandas / targets.bands) * 100) + '%';
     }
+
+    function animateNumber(from, to, duration, onUpdate) {
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced) { onUpdate(to); return; }
+        const startTime = performance.now();
+        function frame(now) {
+            const progress = Math.min((now - startTime) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(from + (to - from) * eased);
+            onUpdate(current);
+            if (progress < 1) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+    }
+
+    function animateProgressBarUpdate(from, to, targets) {
+        const duration = 1200;
+        animateNumber(from.musicos, to.musicos, duration, (val) => {
+            document.getElementById('countMusicos').textContent = val;
+            document.getElementById('barMusicos').style.width = Math.min(100, (val / targets.musicians) * 100) + '%';
+        });
+        animateNumber(from.bandas, to.bandas, duration, (val) => {
+            document.getElementById('countBandas').textContent = val;
+            document.getElementById('barBandas').style.width = Math.min(100, (val / targets.bands) * 100) + '%';
+        });
+    }
+
     async function cargarProgreso() {
+        const loadingEl = document.getElementById('progressLoading');
+        actualizarProgreso();
+        if (loadingEl) loadingEl.classList.remove('hidden');
         try {
             const r = await fetch(CONFIG.SHEETS_ENDPOINT + '?action=counts');
             if (r.ok) {
                 const data = await r.json();
+                const from = { musicos: counts.musicos, bandas: counts.bandas };
                 counts = { musicos: data.musicians || 0, bandas: data.bands || 0 };
+                animateProgressBarUpdate(from, counts, data.targets || CONFIG.COMMUNITY_TARGETS);
             }
         } catch {}
-        actualizarProgreso();
+        if (loadingEl) loadingEl.classList.add('hidden');
     }
 
     // Start from initial cards - profileType already set, go to step 1 (Contacto)
