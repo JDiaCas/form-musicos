@@ -1096,29 +1096,29 @@
         const naLabel = group.querySelector('input[value="no_aplica"]')?.closest('label');
 
         if (!searched || searched.value === 'si') {
-            // Show si/no/todavia, hide no_aplica
+            // Enable si/no/todavia, disable no_aplica
             [siLabel, noLabel, todaviaLabel].forEach(l => {
                 if (!l) return;
-                l.classList.remove('hidden');
+                l.classList.remove('disabled');
                 const r = l.querySelector('input');
                 if (r) r.disabled = false;
             });
             if (naLabel) {
-                naLabel.classList.add('hidden');
+                naLabel.classList.add('disabled');
                 const r = naLabel.querySelector('input');
                 if (r) { r.disabled = true; r.checked = false; }
             }
             if (microcopy) microcopy.textContent = '';
         } else {
-            // searched is 'no' or 'lo_pense' — hide si/no/todavia, auto-select no_aplica
+            // searched is 'no' or 'lo_pense' — disable si/no/todavia, auto-select no_aplica
             [siLabel, noLabel, todaviaLabel].forEach(l => {
                 if (!l) return;
-                l.classList.add('hidden');
+                l.classList.add('disabled');
                 const r = l.querySelector('input');
                 if (r) { r.disabled = true; r.checked = false; }
             });
             if (naLabel) {
-                naLabel.classList.remove('hidden');
+                naLabel.classList.remove('disabled');
                 const r = naLabel.querySelector('input');
                 if (r) { r.disabled = false; r.checked = true; }
             }
@@ -1167,6 +1167,7 @@
 
         if (n === 6) buildReview();
         if (n === 4 && profileType) updateRehearsedState(profileType);
+        if (n === 2 && profileType === 'band') updateBandRolesAvailability();
 
         document.querySelectorAll('.step-item').forEach(el => {
             const s = parseInt(el.dataset.step);
@@ -1359,19 +1360,42 @@
         });
     });
 
+    function updateBandRolesAvailability() {
+        const val = document.getElementById('bandMembersCount').value;
+        if (val === '' || val === 'mas_5') return;
+        const max = parseInt(val);
+        const checkboxes = document.querySelectorAll('#bandCurrentInstrumentsGroup input[name="bandCurrentInstruments"]');
+        const checked = document.querySelectorAll('#bandCurrentInstrumentsGroup input[name="bandCurrentInstruments"]:checked');
+
+        checkboxes.forEach(cb => {
+            const label = cb.closest('label');
+            if (cb.checked) {
+                // Keep checked ones enabled to allow unchecking
+                cb.disabled = false;
+                if (label) label.classList.remove('disabled');
+            } else {
+                if (checked.length >= max) {
+                    cb.disabled = true;
+                    if (label) label.classList.add('disabled');
+                } else {
+                    cb.disabled = false;
+                    if (label) label.classList.remove('disabled');
+                }
+            }
+        });
+    }
+
     // Band members count limiting for current instruments
     document.getElementById('bandMembersCount').addEventListener('change', function() {
         const val = this.value;
         const checkboxes = document.querySelectorAll('#bandCurrentInstrumentsGroup input[name="bandCurrentInstruments"]');
         const hint = document.getElementById('bandCurrentLimitHint');
         const msg = document.getElementById('bandCurrentLimitMsg');
-        const error = document.getElementById('bandCurrentLimitError');
 
         if (val === '' || val === 'mas_5') {
             hint.textContent = '';
             msg.textContent = val === 'mas_5' ? 'Sois más de 5, no hay límite de selección.' : '';
-            checkboxes.forEach(cb => cb.disabled = false);
-            error.classList.remove('show');
+            checkboxes.forEach(cb => { cb.disabled = false; const l = cb.closest('label'); if (l) l.classList.remove('disabled'); });
             return;
         }
 
@@ -1379,32 +1403,18 @@
         hint.textContent = '(máximo ' + max + ')';
         msg.textContent = 'Selecciona hasta ' + max + ' roles.';
 
-        const checked = document.querySelectorAll('#bandCurrentInstrumentsGroup input[name="bandCurrentInstruments"]:checked');
-        if (checked.length > max) {
-            // Disable the last ones that exceed
-            let count = 0;
-            checkboxes.forEach(cb => {
-                if (cb.checked) {
-                    count++;
-                    if (count > max) {
-                        cb.checked = false;
-                    }
-                }
-            });
-            error.textContent = 'Habéis indicado que sois ' + val + ' personas. Selecciona como máximo ' + max + ' roles.';
-            error.classList.add('show');
-        } else {
-            error.classList.remove('show');
-        }
-
-        // Disable uncheckable ones
+        // Auto-trim if too many are checked
+        let count = 0;
         checkboxes.forEach(cb => {
-            const label = cb.closest('label');
-            if (!cb.checked) {
-                cb.disabled = false;
-                if (label) label.classList.remove('disabled');
+            if (cb.checked) {
+                count++;
+                if (count > max) {
+                    cb.checked = false;
+                }
             }
         });
+
+        updateBandRolesAvailability();
     });
 
     // Also enforce limit on click
@@ -1414,14 +1424,10 @@
             if (val === '' || val === 'mas_5') return;
             const max = parseInt(val);
             const checked = document.querySelectorAll('#bandCurrentInstrumentsGroup input[name="bandCurrentInstruments"]:checked');
-            if (checked.length > max) {
+            if (this.checked && checked.length > max) {
                 this.checked = false;
-                const error = document.getElementById('bandCurrentLimitError');
-                error.textContent = 'Habéis indicado que sois ' + val + ' personas. Selecciona como máximo ' + max + ' roles.';
-                error.classList.add('show');
-            } else {
-                document.getElementById('bandCurrentLimitError').classList.remove('show');
             }
+            updateBandRolesAvailability();
         });
     });
 
@@ -1643,6 +1649,17 @@
                 data[key] = value;
             }
         });
+
+        // Normalize dependent fields — FormData excludes disabled inputs
+        if (data.rol === 'banda') {
+            if (data.bandSearchedBefore && data.bandSearchedBefore !== 'si') {
+                data.bandRehearsedBefore = 'no_aplica';
+            }
+        } else {
+            if (data.searchedBefore && data.searchedBefore !== 'si') {
+                data.rehearsedBefore = 'no_aplica';
+            }
+        }
 
         const email = document.getElementById('email');
         if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
