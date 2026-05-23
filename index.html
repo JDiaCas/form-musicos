@@ -945,8 +945,8 @@
         SHEETS_ENDPOINT: "https://script.google.com/macros/s/AKfycbyudvioiVHsHj84ddl0d160mFthAfFTYk6qVHQaN4CIvRmOw0iugQvMSlRsd51NcOl5vA/exec",
         COMMUNITY_TARGETS: { musicians: 500, bands: 100 }
     };
-    const FALLBACK_COUNTS = { musicians: 2, bands: 1 };
-    let counts = { musicos: FALLBACK_COUNTS.musicians, bandas: FALLBACK_COUNTS.bands };
+    const INITIAL_COUNTS = { musicians: 0, bands: 0 };
+    let counts = { musicos: INITIAL_COUNTS.musicians, bandas: INITIAL_COUNTS.bands };
     const TOTAL_STEPS = 7;
     let currentStep = 1;
     let completedSteps = new Set();
